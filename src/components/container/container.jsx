@@ -5,7 +5,7 @@ export const Container = styled.section`
     flex-wrap: wrap;
     align-content: flex-start;
     border: 1px solid black;
-    margin: 2% 2% 0% 8%;
+    margin: 2% 2% 2% 8%;
     width: 100%;
 `
 
