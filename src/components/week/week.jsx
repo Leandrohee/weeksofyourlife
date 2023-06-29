@@ -20,22 +20,35 @@ const Week = styled.div`
         transition: transform .2s;                                                                //Essa atribuicao trabalha junto com o transforme 
 
         .inside-week{
-            display: flex;
+            display: none;
             flex-direction: column;
             height: 100%;
-            color: red;
+            color: ${props => props.theme.colors.black};
             justify-content: top;
             align-items: center;
             font-size: 10px;
         }
         
+        .week-titulo{
+            font-size: 0.5rem;
+        }
+
+        .week-subtitulo{
+            font-size: 0.42rem;
+        }
+
         .week-relativo{
-            font-size: 6px;
+            margin: 0.3rem 0 0 0;
+            font-size: 0.34rem;
         }
 
         &:hover{
             transform: translate(0, -1rem);                                           //Joga o elemento pra cima 1rem
-            transform: scale(2);                                                      //Cresce o elemento 2x
+            transform: scale(2.5);                                                      //Cresce o elemento 2x
+            
+            .inside-week{
+                display: flex;
+            }
         }
  `
  function clickNaSemana(e){
@@ -48,48 +61,44 @@ const Week = styled.div`
  }
 
 
-var weekRelativa
-function formatData(birth){
-    // const birthFind = new Date(birth)
+// VARIAVIES GLOBAIS
+var dataRefIni,dataRefFim
+const dataFim={
+    mes: "",
+    dia: "",
+}
+var diaNiver, diaNiverMes,diaNiverDia, diaNiverDiaLim 
+var ano,contAno
+
+//
+
+function contaAno(){
+    contAno = contAno + 0.5
+ }
+
+function formatData(birth, id){
 
     const niver = new Date(birth)
 
-    // const birthYear = birthFind.getFullYear()     //Pega o ano da data selecionada
-    // birthFind.setDate(birthFind.getDate()+ 1)     //Pega o dia da data selecionada e adciona mais 1 dia 
-    // const birthDate = birthFind.getDate()         //Pega o dia da data selecionada atualizado
-    // birthFind.setMonth(birthFind.getMonth()+ 1)   //Pega o mes que nasceu e add mais 1 
-    // var birthMonth = birthFind.getMonth()         //pega o mes que nasceu atualizado
-    // var birthDay = birthFind.getDay()             //Pega o dia da semana do aniversario
-  
-    // birthDay == 0 ? birthDay = "dom" : birthDay=birthDay
-    // birthDay == 1 ? birthDay = "seg" : birthDay=birthDay
-    // birthDay == 2 ? birthDay = "ter" : birthDay=birthDay
-    // birthDay == 3 ? birthDay = "qua" : birthDay=birthDay
-    // birthDay == 4 ? birthDay = "qui" : birthDay=birthDay
-    // birthDay == 5 ? birthDay = "sex" : birthDay=birthDay
-    // birthDay == 6 ? birthDay = "sab" : birthDay=birthDay
+    if(id == 1){ 
+        diaNiver = new Date(birth)
+        diaNiver.setDate(diaNiver.getDate()+1)
+        diaNiverDia = diaNiver.getDate()
+        diaNiverMes = diaNiver.getMonth()
+        diaNiver.setDate(diaNiver.getDate()+6)
+        diaNiverDiaLim = diaNiver.getDate()
+    }
 
-    // birthDay == 0 ? birthDay = 7 : birthDay=birthDay
-
-
-    // const Birth = {                                       //Atualizando o BirthDay
-    //   data: birthDate,
-    //   month: birthMonth,
-    //   year: birthYear,
-    //   day: birthDay,
-    // }
-
+    var bDia = niver.getDay()                  //Pega o dia da semana do aniversario (0=dom, 6= sabado )
+    var bMes = niver.getMonth()               //Pega o mes do aniversario (0=jan, 11=dez)
+    var bAno = niver.getFullYear()            //Pega o ano do aniverario
+    var dataRef
 
     function mudaDia(i){
         niver.setDate(niver.getDate()+ i)
         return(niver.getDate())
     }
-    
-    var bDia = niver.getDay()             //Pega o dia da semana do aniversario (0=dom, 6= sabado )
-    var bMes = niver.getMonth()               //Pega o mes do aniversario (0=jan, 11=dez)
-    var bAno = niver.getFullYear()            //Pega o ano do aniverario
-    var dataInicial
-    var dataFinal 
+
 
     //FORMATANDO OS DIAS DO MES SEM ALTERAR O OBJETO "NIVER" (0=jan, 12=dez)
     if(bMes == 0){bMes = 1}                     //Janeiro
@@ -106,45 +115,86 @@ function formatData(birth){
     else if(bMes == 11){bMes = 12}              //Dezembro
 
 
-    // if(bDia == 0){bDia = "seg"}
-    // else if(bDia == 1){bDia = "ter"}
-    // else if(bDia == 1){bDia = "qua"}
-    // else if(bDia == 1){bDia = "qui"}
-    // else if(bDia == 1){bDia = "sex"}
-    // else if(bDia == 1){bDia = "sab"}
-    // else if(bDia == 1){bDia = "dom"}
+    if(bDia == 0){bDia = 1}                     //Segunda
+    else if(bDia == 1){bDia = 2}                //Terca    
+    else if(bDia == 2){bDia = 3}                //Quarta
+    else if(bDia == 3){bDia = 4}                //Quinta
+    else if(bDia == 4){bDia = 5}                //Sexta
+    else if(bDia == 5){bDia = 6}                //Sabado
+    else if(bDia == 6){bDia = 7}                //Domingo
+                                                       
+    if (id == 1){                                                           //Primeira Semana
+        dataRefIni = `${mudaDia(1)}/${bMes}/${bAno}`                       //Dia do aniversario no formato dd/mm/ano 
 
-    // console.log(bDia)
-
-    let cont = 0                                                        //Primeira Semana
-    if (cont == 0){
-        dataInicial = `${mudaDia(1)}/${bMes}/${bAno}`
-
-        for(let i=0; i<5;i++){                                          //Serao 6 repeticoes
-            if(bDia == i){                                              //i =   {0,1,2,3,4,5,6}
-                dataFinal = `${mudaDia(6-i)}/${bMes}/${bAno}`       //6-1 = {6,5,4,3,2,1,0}     
+        for(let i=1; i<=7;i++){                                             //Serao 7 repeticoes
+            if(bDia == i){                                                  //i =       {1,2,3,4,5,6,7}
+                dataRefFim = `${mudaDia(7-i)}/${bMes}/${bAno}`               //7-(i) =   {6,5,4,3,2,1,0} (dia fim da primeira semana - domingo dd/mm/ano)     
             } 
         }
-
-        console.log(dataInicial)
-        console.log(dataFinal)
     }
-  
-    cont++
+    else{
+        dataRef = (new Date(bAno,niver.getMonth(),mudaDia(9-bDia)))   //Primeira segunda depois do aniversario (formato date)    
 
+        function mudaDiaIni(i){                                       //Essa funcao muda  o dia inicial de semana em semana
+            dataRef.setDate(dataRef.getDate() + (i*(id-2)) )
+            return(dataRef.getDate())
+        }
+
+        function mudaDiaFim(i){                                     //Essa funcao muda o dia final de semana em semana
+            dataRef.setDate(dataRef.getDate() + i )
+            return(dataRef.getDate())
+        }
+
+        function pegaMes(){
+            let mes = dataRef.getMonth()
+            if(mes == 0){mes = 1}                     //Janeiro
+            else if(mes == 1){mes = 2}                //Fevereiro
+            else if(mes == 2){mes = 3}                //Marco
+            else if(mes == 3){mes = 4}                //Abril
+            else if(mes == 4){mes = 5}                //Maio
+            else if(mes == 5){mes = 6}                //Junho
+            else if(mes == 6){mes = 7}                //Julho
+            else if(mes == 7){mes = 8}                //Agosto
+            else if(mes == 8){mes = 9}                //Setembro
+            else if(mes == 9){mes = 10}               //Outubro
+            else if(mes == 10){mes = 11}              //Novembro
+            else if(mes == 11){mes = 12}              //Dezembro
+            return(mes)
+        }
+
+        function pegaAno(){
+            let ano = dataRef.getFullYear().toString()
+            if(ano == "2020"){ ano = "20"}
+            else{ano = ano.replace(/20|19/gi,"")}
+            return(ano)
+        }
+
+
+        dataRefIni = `${mudaDiaIni(7)}/${pegaMes()}/${pegaAno()}`
+        dataRefFim = `${mudaDiaFim(6)}/${pegaMes()}/${pegaAno()}`
+
+         dataFim.mes = dataRef.getMonth()
+         dataFim.dia = dataRef.getDate()   
+    }
+
+    
+    
+    console.log(diaNiverDia,diaNiverDiaLim, diaNiverMes) 
+    
+    if((dataFim.mes == diaNiverMes) && (dataFim.dia <=diaNiverDiaLim) && (dataFim.dia >=diaNiverDia)){
+        ano = "true"
+        contaAno()
+    }
+    else{
+        ano = "false"
+    }
 }
 
 
-export default ({color, id, birth })=>{
-    var yearOfWeek = Math.floor(id/52);
+export default ({color, id, birth })=>{ 
+    if(id == 1){contAno = 0}
 
-    let ano
-    (id % 52 == 0) ? ano = "true" : ano = "false"
-    
-    if(id == 1) {
-        formatData(birth)
-    }
-
+    formatData(birth, id)
 
     return(
         <Week 
@@ -155,9 +205,9 @@ export default ({color, id, birth })=>{
             onMouseOver={(e)=> mouseNaSemana(e)}
         >
             <div className='inside-week'>
-                <p>{`Year ${yearOfWeek}`}</p>
-                <p>{`Week ${id}`}</p>
-                <p className='week-relativo'>{weekRelativa}</p>
+                <p className='week-titulo'>{`${contAno} Anos`}</p>
+                <p className='week-subtitulo'>{`Semana: ${id}`}</p>
+                <p className='week-relativo'>{`${dataRefIni} - ${dataRefFim}`}</p>
             </div>
         </Week>
     )
