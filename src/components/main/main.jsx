@@ -13,28 +13,20 @@ const Main = styled.main`
 `
 
 for(let i=1; i < nSemanas + 1 ;i++){
-    (i % 52 == 0) ? nWeeks.push(<Week key={i} ano="true" id={i}>  </Week>) : nWeeks.push(<Week key={i} id={i}> </Week>)
+    nWeeks.push(i)
 }
 
-export default ()=>{
+
+export default ({birth})=>{  
     return(
         <Main>
             <Container>
-                {nWeeks.map(week => {
-                    return(week)
-                })}      
+                {nWeeks.map(i=>{
+                    return(
+                        <Week key={i} id={i} birth={birth}></Week>
+                    )
+                })}
             </Container>   
         </Main>
     )
 }
-
-//------------------------------------------------------------------------
-
-// const Main = styled.main`
-//     display: flex;
-//     height: 100vh;
-//     width: 100%;
-//     background-color: ${props => props.theme.colors.primary}
-// `
-
-// export default Main
