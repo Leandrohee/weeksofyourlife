@@ -1,3 +1,4 @@
+import Tasks from '../tasks/tasks'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -19,10 +20,10 @@ const Week = styled.div`                                    //Criando um styled 
         border: ${props => props.ano == "true" ? "2px solid #F2CD5C" : ""};                                   //Toda vez que completar 52 semanas seleciona o elemento com uma borda
         box-shadow: rgba(0, 0, 0, 0.35) 0 0.05rem 0.15rem;                                      
         transition: transform .2s;                                                                //Essa atribuicao trabalha junto com o transforme 
-        transform: scale(${props => props.scale == "true" ? 7 : ""});
+        transform: scale(${props => props.isclicked == "true" ? 7 : ""});
 
         .inside-week{
-            display: ${props => props.nohover ? "flex" : "none"};
+            display: ${props => props.isclicked == "true"  ? "flex" : "none"};
             flex-direction: column;
             height: 100%;
             color: ${props => props.fontcolor};
@@ -52,7 +53,7 @@ const Week = styled.div`                                    //Criando um styled 
         &:hover{
             /* transform: translate(0, -1rem);                                           //Joga o elemento pra cima 1rem */
             /* transform: scale(2.5);                                                    //Cresce o elemento 2x */
-            transform: scale(${props => props.nohover ? "" : 2.5});                      //Se true n faz nada se false segue o jogo (2.5)   
+            transform: scale(${props => props.isclicked == "true" ? "" : 2.5});                      //Se true n faz nada se false segue o jogo (2.5)   
 
             .inside-week{
                 display: flex;
@@ -223,19 +224,18 @@ export default ({id, birth})=>{
 
     formatData(birth, id)
 
-    const [scale, setScale] = useState("false")
-    const [nohover, setNohover] = useState("")
+    const [isclicked, setIsClicked] = useState("false")
 
     function clickNaSemana(e){
-        const valorScale = e.target.parentNode.attributes.scale.value
-        const valorNohover = e.target.parentNode.attributes.nohover.value
 
-        if(valorScale == "true"){setScale("false")}
-        else if(valorScale == "false"){setScale("true")}
+        // const valorIsClicked = e.target.parentNode.attributes.isclicked.value
 
-        if(valorNohover == ""){setNohover("true")}
-        else{setNohover("")}
+        if(isclicked == "false"){setIsClicked("true")}
+        else{setIsClicked("false")}
+     
+        console.log(e.target)
     }
+
 
     return(
         <Week 
@@ -244,13 +244,13 @@ export default ({id, birth})=>{
             fontcolor = {fontColor}                             //propriedade herdada de uma variavel global
             ano={ano}                                           //propriedade herdada de uma variavel gloval
             onClick={(e) => clickNaSemana(e)}                   //funcao interna do componente react
-            scale={scale}                                       //alterada como o useState
-            nohover= {nohover}
+            isclicked = {isclicked}
         >
             <div className='inside-week' >
                 <p className='week-titulo'>{`${contAno} Anos`}</p>
                 <p className='week-subtitulo'>{`Semana: ${id}`}</p>
                 <p className='week-relativo'>{`${dataRefIni} - ${dataRefFim}`}</p>
+                <Tasks isclicked={isclicked}></Tasks>
             </div>
         </Week>
     )
