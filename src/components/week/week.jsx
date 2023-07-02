@@ -227,12 +227,8 @@ export default ({id, birth})=>{
     const [isclicked, setIsClicked] = useState("false")
 
     function clickNaSemana(e){
-
-        // const valorIsClicked = e.target.parentNode.attributes.isclicked.value
-
         if(isclicked == "false"){setIsClicked("true")}
         else{setIsClicked("false")}
-     
         console.log(e.target)
     }
 
@@ -250,7 +246,7 @@ export default ({id, birth})=>{
                 <p className='week-titulo'>{`${contAno} Anos`}</p>
                 <p className='week-subtitulo'>{`Semana: ${id}`}</p>
                 <p className='week-relativo'>{`${dataRefIni} - ${dataRefFim}`}</p>
-                <Tasks isclicked={isclicked}></Tasks>
+                <Tasks isclicked={isclicked} id={id} ></Tasks>
             </div>
         </Week>
     )
