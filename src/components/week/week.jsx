@@ -74,163 +74,184 @@ var diaNiver, diaNiverMes,diaNiverDia, diaNiverDiaLim
 var ano,contAno
 var hoje = new Date()
 var color, fontColor
+var niver ={
+    dia:"",
+    mes:"",
+    ano:"",
+    diasemana:"",
+    data:"",
+} 
 //------------------------------------
  
 
-function mudaCor(dataFim,aniversario){
-    if(hoje >= dataFim){
-        color = "#787A91"
-        fontColor = `white`
+function mudaCor(cor, fonte){
+    // if(hoje >= dataFim){
+    //     color = "#787A91"
+    //     fontColor = `white`
         
-    }
-    else{
-        color = "#D9D9D9"
-        fontColor = `black`
-    }
+    // }
+    // else{
+    //     color = "#D9D9D9"
+    //     fontColor = `black`
+    // }
 
-    if(aniversario == "aniversario"){
-        color = "#FFF2CC"
-        fontColor = 'black'
-    }
+    // if(aniversario == "aniversario"){
+    //     color = "#FFF2CC"
+    //     fontColor = 'black'
+    // }
 
+    // if(custom != undefined){
+    //     color = custom
+    // }
+
+    color = cor
+    fontColor = fonte
 }
 
+// function formatData(birth, id){
 
-function formatData(birth, id){
+//     const niver = new Date(birth)
 
-    const niver = new Date(birth)
+//     if(id == 1){ 
+//         diaNiver = new Date(birth)
+//         diaNiver.setDate(diaNiver.getDate()+1)
+//         diaNiverDia = diaNiver.getDate()
+//         diaNiverMes = diaNiver.getMonth()
+//         diaNiver.setDate(diaNiver.getDate()+6)
+//         diaNiverDiaLim = diaNiver.getDate()
+//     }
 
-    if(id == 1){ 
-        diaNiver = new Date(birth)
-        diaNiver.setDate(diaNiver.getDate()+1)
-        diaNiverDia = diaNiver.getDate()
-        diaNiverMes = diaNiver.getMonth()
-        diaNiver.setDate(diaNiver.getDate()+6)
-        diaNiverDiaLim = diaNiver.getDate()
-    }
+//     var bDia = niver.getDay()                  //Pega o dia da semana do aniversario (0=dom, 6= sabado )
+//     var bMes = niver.getMonth()               //Pega o mes do aniversario (0=jan, 11=dez)
+//     var bAno = niver.getFullYear()            //Pega o ano do aniverario
+//     var bTempo = niver.getTime()
+//     var dataRef
 
-    var bDia = niver.getDay()                  //Pega o dia da semana do aniversario (0=dom, 6= sabado )
-    var bMes = niver.getMonth()               //Pega o mes do aniversario (0=jan, 11=dez)
-    var bAno = niver.getFullYear()            //Pega o ano do aniverario
-    var bTempo = niver.getTime()
-    var dataRef
-
-    function mudaDia(i){
-        niver.setDate(niver.getDate()+ i)
-        return(niver.getDate())
-    }
-
-
-    //FORMATANDO OS DIAS DO MES SEM ALTERAR O OBJETO "NIVER" (0=jan, 12=dez)
-    if(bMes == 0){bMes = 1}                     //Janeiro
-    else if(bMes == 1){bMes = 2}                //Fevereiro
-    else if(bMes == 2){bMes = 3}                //Marco
-    else if(bMes == 3){bMes = 4}                //Abril
-    else if(bMes == 4){bMes = 5}                //Maio
-    else if(bMes == 5){bMes = 6}                //Junho
-    else if(bMes == 6){bMes = 7}                //Julho
-    else if(bMes == 7){bMes = 8}                //Agosto
-    else if(bMes == 8){bMes = 9}                //Setembro
-    else if(bMes == 9){bMes = 10}               //Outubro
-    else if(bMes == 10){bMes = 11}              //Novembro
-    else if(bMes == 11){bMes = 12}              //Dezembro
+//     function mudaDia(i){
+//         niver.setDate(niver.getDate()+ i)
+//         return(niver.getDate())
+//     }
 
 
-    if(bDia == 0){bDia = 1}                     //Segunda
-    else if(bDia == 1){bDia = 2}                //Terca    
-    else if(bDia == 2){bDia = 3}                //Quarta
-    else if(bDia == 3){bDia = 4}                //Quinta
-    else if(bDia == 4){bDia = 5}                //Sexta
-    else if(bDia == 5){bDia = 6}                //Sabado
-    else if(bDia == 6){bDia = 7}                //Domingo
+//     //FORMATANDO OS DIAS DO MES SEM ALTERAR O OBJETO "NIVER" (0=jan, 11=dez) para (1=jan, 12=dez)
+//     bMes = bMes+1 
+
+//     //FORMATANDO OS DIAS DA SEMANA SEM ALTERAR O OBJETO "NIVER" (0=SEG, 6=DOM) para (1=SEG, 7=DOM)
+//     bDia = bDia+1
                                                        
-    if (id == 1){                                                          //PRIMEIRA SEMANA
-        dataRefIni = `${mudaDia(1)}/${bMes}/${bAno}`                       //Dia do aniversario no formato dd/mm/ano 
+//     if (id == 1){                                                          //PRIMEIRA SEMANA
+//         dataRefIni = `${mudaDia(1)}/${bMes}/${bAno}`                       //Dia do aniversario no formato dd/mm/ano 
 
-        for(let i=1; i<=7;i++){                                             //Serao 7 repeticoes
-            if(bDia == i){                                                  //i =       {1,2,3,4,5,6,7}
-                dataRefFim = `${mudaDia(7-i)}/${bMes}/${bAno}`               //7-(i) =   {6,5,4,3,2,1,0} (dia fim da primeira semana - domingo dd/mm/ano)     
-            } 
-        }
-        mudaCor(dataRefFim)
+//         for(let i=1; i<=7;i++){                                             //Serao 7 repeticoes
+//             if(bDia == i){                                                  //i =       {1,2,3,4,5,6,7}
+//                 dataRefFim = `${mudaDia(7-i)}/${bMes}/${bAno}`               //7-(i) =   {6,5,4,3,2,1,0} (dia fim da primeira semana - domingo dd/mm/ano)     
+//             } 
+//         }
+//         mudaCor("#787A91","white")
         
-    }
-    else{                                                               //DEMAIS SEMANAS
-        dataRef = (new Date(bAno,niver.getMonth(),mudaDia(9-bDia)))   //Primeira segunda depois do aniversario (formato date)    
+//     }
+//     else{                                                               //DEMAIS SEMANAS
+//         dataRef = (new Date(bAno,niver.getMonth(),mudaDia(9-bDia)))   //Primeira segunda depois do aniversario (formato date)    
 
-        function mudaDiaIni(i){                                       //Essa funcao muda  o dia inicial de semana em semana
-            dataRef.setDate(dataRef.getDate() + (i*(id-2)) )
-            return(dataRef.getDate())
-        }
+//         function mudaDiaIni(i){                                       //Essa funcao muda  o dia inicial de semana em semana
+//             dataRef.setDate(dataRef.getDate() + (i*(id-2)) )
+//             return(dataRef.getDate())
+//         }
 
-        function mudaDiaFim(i){                                     //Essa funcao muda o dia final de semana em semana
-            dataRef.setDate(dataRef.getDate() + i )
-            return(dataRef.getDate())
-        }
+//         function mudaDiaFim(i){                                     //Essa funcao muda o dia final de semana em semana
+//             dataRef.setDate(dataRef.getDate() + i )
+//             return(dataRef.getDate())
+//         }
 
-        function pegaMes(){
-            let mes = dataRef.getMonth()
-            if(mes == 0){mes = 1}                     //Janeiro
-            else if(mes == 1){mes = 2}                //Fevereiro
-            else if(mes == 2){mes = 3}                //Marco
-            else if(mes == 3){mes = 4}                //Abril
-            else if(mes == 4){mes = 5}                //Maio
-            else if(mes == 5){mes = 6}                //Junho
-            else if(mes == 6){mes = 7}                //Julho
-            else if(mes == 7){mes = 8}                //Agosto
-            else if(mes == 8){mes = 9}                //Setembro
-            else if(mes == 9){mes = 10}               //Outubro
-            else if(mes == 10){mes = 11}              //Novembro
-            else if(mes == 11){mes = 12}              //Dezembro
-            return(mes)
-        }
+//         function pegaMes(){
+//             let mes = dataRef.getMonth()
+//             mes = mes+1                                 //Formatando o mes para 1=jan e 12= dez sem mudar o dataref
+//             return(mes)
+//         }
 
-        function pegaAno(){
-            let ano = dataRef.getFullYear().toString()
-            if(ano == "2020"){ ano = "20"}
-            else{ano = ano.replace(/20|19/gi,"")}
-            return(ano)
-        }
+//         function pegaAno(){
+//             let ano = dataRef.getFullYear().toString()
+//             if(ano == "2020"){ ano = "20"}
+//             else{ano = ano.replace(/20|19/gi,"")}
+//             return(ano)
+//         }
 
 
-        dataRefIni = `${mudaDiaIni(7)}/${pegaMes()}/${pegaAno()}`
-        dataRefFim = `${mudaDiaFim(6)}/${pegaMes()}/${pegaAno()}`
+//         dataRefIni = `${mudaDiaIni(7)}/${pegaMes()}/${pegaAno()}`
+//         dataRefFim = `${mudaDiaFim(6)}/${pegaMes()}/${pegaAno()}`
 
-         dataFim.mes = dataRef.getMonth()
-         dataFim.dia = dataRef.getDate()
-         dataFim.ano = dataRef.getFullYear()
-         dataFim.data = dataRef 
-         dataFim.tempo = dataRef.getTime() 
-    }
+//          dataFim.mes = dataRef.getMonth()
+//          dataFim.dia = dataRef.getDate()
+//          dataFim.ano = dataRef.getFullYear()
+//          dataFim.data = dataRef 
+//          dataFim.tempo = dataRef.getTime() 
+//     }
 
-    mudaCor(dataFim.data)
+//     function verificaSeSemanaAcabou(dataFim){
+//         if(hoje >= dataFim){
+//             mudaCor("#787A91","white")
+//         }
+//         else{
+//             mudaCor("#d9d9d9","black")
+//         }
+//     }
+
+//     verificaSeSemanaAcabou(dataFim.data)
  
 
-    if((dataFim.mes == diaNiverMes) && (dataFim.dia <=diaNiverDiaLim) && (dataFim.dia >=diaNiverDia)){
-        ano = "true"
-        contAno = dataFim.ano - bAno
-        mudaCor("","aniversario")
-    }
-    else{
-        ano = "false"
-        const diasDesdeNascimento = Math.floor((((dataFim.tempo - bTempo)/(1000*60*60*24))/365.25))         //como a funcao getTime() pega as horas e n o dia tive que acrescentar 0.25 para compensar a perda no longo przo
-        contAno = diasDesdeNascimento
-        if(id == 1){ contAno = 0}
-    }
-}
+//     if((dataFim.mes == diaNiverMes) && (dataFim.dia <=diaNiverDiaLim) && (dataFim.dia >=diaNiverDia)){
+//         ano = "true"
+//         contAno = dataFim.ano - bAno
+//         mudaCor("#FFF2CC","black")
+//     }
+//     else{
+//         ano = "false"
+//         const diasDesdeNascimento = Math.floor((((dataFim.tempo - bTempo)/(1000*60*60*24))/365.25))         //como a funcao getTime() pega as horas e n o dia tive que acrescentar 0.25 para compensar a perda no longo przo
+//         contAno = diasDesdeNascimento
+//         if(id == 1){ contAno = 0}
+//     }
+// }
 
 
 export default ({id, birth})=>{ 
+ 
 
-    formatData(birth, id)
+    if(id == 1){
+        niver.data = new Date(birth)                        //A variavel birth eh estatica e n muda ao longo do codigo 
+
+        niver.mes = niver.data.getMonth()
+        niver.mes = niver.mes + 1                           //Formato padrao vem (jan=0 e dez=11) mudei para (jan=1 e dez=12)
+        niver.diasemana = niver.data.getDay()
+        niver.diasemana = niver.diasemana + 1               //Formato padrao vem (seg=0 e dom=6) mudei para (seg=1 e dom=7)
+        niver.ano = niver.data.getFullYear()
+        niver.data.setDate(niver.data.getDate()+1)          //Formato padrao vem com 1 dia a menos
+        niver.dia = niver.data.getDate()
+ 
+        console.log(niver)  
+    }  
+
+
 
     const [isclicked, setIsClicked] = useState("false")
+    const [fontColorCustomn, setFontColorCustom] = useState("")
+    const [colorCustom, setColorCustom] = useState("")           
 
-    function clickNaSemana(e){
-        if(isclicked == "false"){setIsClicked("true")}
-        else{setIsClicked("false")}
-        console.log(e.target)
+    function clickNaSemana(e){                                      //funcao altera clique
+        setIsClicked(isclicked == "false" ? "true" : "false")       //Altera para true ou false quando clicado
+        console.log(e.target.parentNode)
     }
+
+    function mudaCor(corbg,corfonte){
+        setColorCustom(corbg)
+        setFontColorCustom(corfonte)
+    }
+
+    function formatData(id, birth){
+       
+
+    }
+
+    formatData(id, birth)
 
 
     return(
@@ -240,13 +261,13 @@ export default ({id, birth})=>{
             fontcolor = {fontColor}                             //propriedade herdada de uma variavel global
             ano={ano}                                           //propriedade herdada de uma variavel gloval
             onClick={(e) => clickNaSemana(e)}                   //funcao interna do componente react
-            isclicked = {isclicked}
+            isclicked = {isclicked}                             //funcao interna do componente react
         >
             <div className='inside-week' >
                 <p className='week-titulo'>{`${contAno} Anos`}</p>
                 <p className='week-subtitulo'>{`Semana: ${id}`}</p>
                 <p className='week-relativo'>{`${dataRefIni} - ${dataRefFim}`}</p>
-                <Tasks isclicked={isclicked} id={id} ></Tasks>
+                <Tasks isclicked={isclicked} id={id} cor={(cor)=> mudaCor(cor)}></Tasks>
             </div>
         </Week>
     )

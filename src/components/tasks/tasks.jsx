@@ -63,22 +63,21 @@ const Tasks = styled.ul`
     }
 `
 
-export default ({isclicked, id})=>{
+export default ({isclicked, id, cor})=>{
 
    
     function clickNaTask(e){
         e.stopPropagation()
     }
 
-    function changeColor(cor){
-        console.log("cliquei")
+    function changeColor(corclicada){
+        cor(corclicada)
     }
-
 
     return(
         <Tasks isclicked={isclicked} onClick={(e)=>clickNaTask(e)} >
-            <button className='btn-green' onClick={()=> changeColor("green")}></button>
-            <button className='btn-red' onClick={()=> changeColor("red")}></button>
+            <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
+            <button className='btn-red' onClick={()=> changeColor("#FF6666")}></button>
             <li>
                 <input id={id+0.1} className="input-checkbox" type='checkbox'/>
                 <input className="input-text" type='text'/>
