@@ -1,5 +1,5 @@
 import Tasks from '../tasks/tasks'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const Week = styled.div`                                    //Criando um styled components
@@ -62,7 +62,9 @@ const Week = styled.div`                                    //Criando um styled 
  `
 
 // VARIAVIES GLOBAIS
-var dataRefIni,dataRefFim
+var hoje = new Date()
+var nivermais6
+
 const dataFim={                                             //Data do fim de cada semana
     mes: "",
     dia: "",
@@ -70,43 +72,47 @@ const dataFim={                                             //Data do fim de cad
     data: "",
     tempo: "",
 }
-var diaNiver, diaNiverMes,diaNiverDia, diaNiverDiaLim 
-var ano,contAno
-var hoje = new Date()
-var color, fontColor
-var niver ={
+const niver ={                                              //Data atribuida somente 1 vez no id =1 (nascimento)
     dia:"",
     mes:"",
     ano:"",
     diasemana:"",
     data:"",
+}
+const dataRef={                                             //Data referencia que inicia sempre na seg e acaba sempre no domingo
+    dia:"",                 //formato numero (1 a 31)
+    mes:"",                 //formato numero (1 a 12)
+    ano:"",                 //formato numero (2 numeros)
+    diasemana:"",           //formato numero (1 a 7)
+    data:"",                //formato date
+    ini:"",                 //formato string dd/mm/yy        
+    fim:""                  //formato string dd/mm/yy              
 } 
 //------------------------------------
- 
 
-function mudaCor(cor, fonte){
-    // if(hoje >= dataFim){
-    //     color = "#787A91"
-    //     fontColor = `white`
+// function mudaCor(cor, fonte){
+//     // if(hoje >= dataFim){
+//     //     color = "#787A91"
+//     //     fontColor = `white`
         
-    // }
-    // else{
-    //     color = "#D9D9D9"
-    //     fontColor = `black`
-    // }
+//     // }
+//     // else{
+//     //     color = "#D9D9D9"
+//     //     fontColor = `black`
+//     // }
 
-    // if(aniversario == "aniversario"){
-    //     color = "#FFF2CC"
-    //     fontColor = 'black'
-    // }
+//     // if(aniversario == "aniversario"){
+//     //     color = "#FFF2CC"
+//     //     fontColor = 'black'
+//     // }
 
-    // if(custom != undefined){
-    //     color = custom
-    // }
+//     // if(custom != undefined){
+//     //     color = custom
+//     // }
 
-    color = cor
-    fontColor = fonte
-}
+//     color = cor
+//     fontColor = fonte
+// }
 
 // function formatData(birth, id){
 
@@ -215,26 +221,23 @@ function mudaCor(cor, fonte){
 
 export default ({id, birth})=>{ 
  
-
     if(id == 1){
         niver.data = new Date(birth)                        //A variavel birth eh estatica e n muda ao longo do codigo 
-
+        
+        niver.data.setDate(niver.data.getDate()+1)          //Formato padrao vem com 1 dia a menos
+        niver.dia = niver.data.getDate()
         niver.mes = niver.data.getMonth()
         niver.mes = niver.mes + 1                           //Formato padrao vem (jan=0 e dez=11) mudei para (jan=1 e dez=12)
         niver.diasemana = niver.data.getDay()
-        niver.diasemana = niver.diasemana + 1               //Formato padrao vem (seg=0 e dom=6) mudei para (seg=1 e dom=7)
+        if(niver.diasemana == 0){niver.diasemana = 7}       //Formato padrao vem (seg=1 e dom=0) mudei para (seg=1 e dom=7)
         niver.ano = niver.data.getFullYear()
-        niver.data.setDate(niver.data.getDate()+1)          //Formato padrao vem com 1 dia a menos
-        niver.dia = niver.data.getDate()
- 
-        console.log(niver)  
     }  
 
-
-
     const [isclicked, setIsClicked] = useState("false")
-    const [fontColorCustomn, setFontColorCustom] = useState("")
-    const [colorCustom, setColorCustom] = useState("")           
+    const [fontColor, setFontColor] = useState("black")
+    const [color, setColor] = useState("#D9D9D9")
+    var colorBg, colorFonte
+    var ano,contAno           
 
     function clickNaSemana(e){                                      //funcao altera clique
         setIsClicked(isclicked == "false" ? "true" : "false")       //Altera para true ou false quando clicado
@@ -242,16 +245,89 @@ export default ({id, birth})=>{
     }
 
     function mudaCor(corbg,corfonte){
-        setColorCustom(corbg)
-        setFontColorCustom(corfonte)
+        setColor(corbg)
+        setFontColor(corfonte)
     }
+
+    function verificaSemanaAcabou(data){
+        if (data <= hoje){
+            colorBg = "#787A91"
+            colorFonte = "white"
+        }
+        else{
+            colorBg = "#D9D9D9"
+            colorFonte = "black"
+        }
+    }
+
 
     function formatData(id, birth){
-       
+        //REFERENCIANDO A DATAREF ESSE OBJETO SERA MODIFICADO AO LONGO DA FUNCAO
+        dataRef.data = new Date(birth)
+        dataRef.data.setDate(dataRef.data.getDate()+1)            //Formato padrao vem com 1 dia a menos
+        dataRef.dia = dataRef.data.getDate()
+        dataRef.diasemana = dataRef.data.getDay()
+        if(dataRef.diasemana == 0){dataRef.diasemana = 7}       //Formato padrao vem (seg=1 e dom=0) mudei para (seg=1 e dom=7)
 
-    }
+    
+        function pegaDia(i){
+            dataRef.data.setDate(dataRef.data.getDate()+ i)
+            return(dataRef.data.getDate())
+        }
+
+        function pegaMes(){
+            dataRef.mes = dataRef.data.getMonth()+1;            //Formato padrao vem (jan=0 e dez=11) mudei para (jan=1 e dez=12)
+            return dataRef.mes
+        }
+
+        function pegaAno(){
+            dataRef.ano = dataRef.data.getFullYear().toString()
+            if(dataRef.ano == "2020"){ dataRef.ano  = "20"}
+            else{dataRef.ano  = dataRef.ano.replace(/20|19/gi,"")}
+            return dataRef.ano
+        }
+
+
+        if(id == 1){                                     //PRIMEIRA SEMANA
+            dataRef.ini = `${pegaDia(0)}/${pegaMes()}/${pegaAno()}`
+
+            for(let i=1; i<=7;i++){    
+                if( dataRef.diasemana == i){
+                    dataRef.fim = `${pegaDia(7-i)}/${pegaMes()}/${pegaAno()}`
+                    nivermais6= pegaDia(1)                                          //Essa constante serve para calcular o limite maximo par a semana do aniversario
+                    colorBg = "#787A91"
+                    colorFonte = "white"
+                }
+            }
+        }
+        else{                                               //DEMAIS SEMANAS
+            for(let i=1; i<=7;i++){    
+                if( dataRef.diasemana == i){
+                pegaDia(8-i)                                //Primeira segunda depois do nascimento
+                }
+            }
+            dataRef.ini = `${pegaDia(7*(id-2))}/${pegaMes()}/${pegaAno()}`
+            dataRef.fim = `${pegaDia(6)}/${pegaMes()}/${pegaAno()}`
+
+            verificaSemanaAcabou(dataRef.data)
+        }
+ 
+        if((pegaMes() == niver.mes) && (pegaDia(0) <= nivermais6) && (pegaDia(0)>= niver.dia)){ 
+            ano = "true"
+            contAno = dataRef.data.getFullYear() - niver.ano
+            colorBg = "#FFF2CC"
+            colorFonte = "black"
+        }
+
+ 
+    } 
 
     formatData(id, birth)
+
+    useEffect(()=>{                                         //Para nao dar o problema dos renders
+        setColor(colorBg)
+        setFontColor(colorFonte)
+    },[colorBg])
 
 
     return(
@@ -266,7 +342,7 @@ export default ({id, birth})=>{
             <div className='inside-week' >
                 <p className='week-titulo'>{`${contAno} Anos`}</p>
                 <p className='week-subtitulo'>{`Semana: ${id}`}</p>
-                <p className='week-relativo'>{`${dataRefIni} - ${dataRefFim}`}</p>
+                <p className='week-relativo'>{`${dataRef.ini} - ${dataRef.fim}`}</p>
                 <Tasks isclicked={isclicked} id={id} cor={(cor)=> mudaCor(cor)}></Tasks>
             </div>
         </Week>
