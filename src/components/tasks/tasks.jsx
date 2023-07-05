@@ -19,7 +19,7 @@ const Tasks = styled.ul`
         border-radius: 50%;
         transform: scale(0.6);
         background-color: #03C988;
-        border: 0.001rem solid #03C988;
+        border: 0.001rem solid #5D9C59;
     }
 
     .btn-red{
@@ -62,17 +62,20 @@ const Tasks = styled.ul`
 
     }
 `
+const listaDeInput = document.querySelectorAll(".input-text")
+console.log(listaDeInput) 
 
-export default ({isclicked, id, cor})=>{
+export default ({isclicked, id, customCor})=>{
 
-   
     function clickNaTask(e){
         e.stopPropagation()
+        console.log(e.target.checked)
     }
 
     function changeColor(corclicada){
-        cor(corclicada)
+        customCor(corclicada)   
     }
+
 
     return(
         <Tasks isclicked={isclicked} onClick={(e)=>clickNaTask(e)} >
@@ -80,15 +83,15 @@ export default ({isclicked, id, cor})=>{
             <button className='btn-red' onClick={()=> changeColor("#FF6666")}></button>
             <li>
                 <input id={id+0.1} className="input-checkbox" type='checkbox'/>
-                <input className="input-text" type='text'/>
+                <input id={id+0.2} className="input-text" type='text'/>
             </li>
             <li>
-                <input  className="input-checkbox" type='checkbox'/>
-                <input className="input-text" type='text'/>
+                <input  id={id+0.3} className="input-checkbox" type='checkbox'/>
+                <input id={id+0.4}className="input-text" type='text'/>
             </li>
             <li>
-                <input  className="input-checkbox" type='checkbox'/>
-                <input className="input-text" type='text'/>
+                <input  id={id+0.5} className="input-checkbox" type='checkbox'/>
+                <input id={id+0.6} className="input-text" type='text'/>
             </li>
         </Tasks>
     )
