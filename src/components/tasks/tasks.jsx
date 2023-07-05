@@ -63,9 +63,8 @@ const Tasks = styled.ul`
     }
 `
 const listaDeInput = document.querySelectorAll(".input-text")
-console.log(listaDeInput) 
 
-export default ({isclicked, id, customCor})=>{
+export default ({isclicked, id, customcor})=>{
 
     function clickNaTask(e){
         e.stopPropagation()
@@ -73,7 +72,7 @@ export default ({isclicked, id, customCor})=>{
     }
 
     function changeColor(corclicada){
-        customCor(corclicada)   
+        customcor(corclicada)   
     }
 
 

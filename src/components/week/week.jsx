@@ -15,7 +15,7 @@ const Week = styled.div`                                    //Criando um styled 
         margin: 0.3rem;
         border-radius: 10px;
 
-        background-color: ${props => props.customCor == "false" ? props.color : props.customCor};
+        background-color: ${props => props.customcor == "false" ? props.color : props.customcor};
         color: ${props => props.fontColor};
         border: ${props => props.ano == "true" ? "2px solid #F2CD5C" : ""};                                   //Toda vez que completar 52 semanas seleciona o elemento com uma borda
         box-shadow: rgba(0, 0, 0, 0.35) 0 0.05rem 0.15rem;                                      
@@ -91,6 +91,8 @@ const dataRef={                                             //Data referencia qu
 //------------------------------------
 
 export default ({id, birth})=>{ 
+
+    console.log("pagina renderizada")
  
     if(id == 1){
         niver.data = new Date(birth)                        //A variavel birth eh estatica e n muda ao longo do codigo 
@@ -226,7 +228,7 @@ export default ({id, birth})=>{
             ano={ano}                                           //propriedade herdada de uma variavel gloval
             onClick={(e) => clickNaSemana(e)}                   //funcao interna do componente react
             isclicked = {isclicked}                             //funcao interna do componente react
-            customCor = {customCor}
+            customcor = {customCor}
         >
             <div className='inside-week' >
                 <p className='week-titulo'>{`${contAno} Anos`}</p>
@@ -235,7 +237,7 @@ export default ({id, birth})=>{
                 <Tasks 
                     isclicked={isclicked} 
                     id={id}
-                    customCor={(customCor)=> mudaCustomCor(customCor)}
+                    customcor={(customCor)=> mudaCustomCor(customCor)}
                 >
                 </Tasks>
             </div>

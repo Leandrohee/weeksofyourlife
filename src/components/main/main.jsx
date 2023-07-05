@@ -4,7 +4,7 @@ import { Container } from 'components/container/container';
    
  
 var nWeeks = []                             //Criação de um array nWeeks para guardar o n° de semanas da sua vida
-const nSemanas = 4200;                      //N° de semanas da sua vida
+const nSemanas = 100;                      //N° de semanas da sua vida
 
 const Main = styled.main`                   //Criando um main para agrupar o container das semanas e as semanas
     display: flex;
@@ -34,6 +34,7 @@ for(let i=1; i < nSemanas + 1 ;i++){        //Acrescentando o numero de semanas 
 }
 
 console.log(nWeeks)
+
 
 export default ({birth})=>{                 //Prop birth vem do app.js comtem a data do input
         
