@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { BirthContext} from 'context/birthContex'
 import {Link} from 'react-router-dom' 
 
 const Inicial = styled.div`
@@ -71,22 +72,21 @@ const Inicial = styled.div`
 
 export default()=>{
 
-    const [birth, setBirth] = useState("")          //No react so consigo mudar uma const com o useState
+    // const [birth, setBirth] = useState("")                      //No react so consigo mudar uma const com o useState
+
+    const {birth,toggleBirth} = useContext(BirthContext)
+
 
     function catchBirth(e){
         e.preventDefault()
         const inputData =  document.querySelector(".input-data").valueAsDate
-        setBirth(inputData)
+        toggleBirth(inputData)
 
-        const link = document.querySelector("link")
-        console.log(link)
+        const link = document.querySelector(".link")            //Localize o componente Link
+        link.click()                                            //Simula um clique
 
-        cliqueNoLink()
     }
 
-    function cliqueNoLink(e){
-        console.log(e)
-    }
 
     return(
         <Inicial>
@@ -98,7 +98,7 @@ export default()=>{
                 <label className="label-data">Insira sua data de nascimento</label>
                 <input required className="input-data"type="date"/>                 
                 <input className="input-submit" type='submit' value="Acessar" />
-                <Link className="link" to="/main" onClick={cliqueNoLink()} >a</Link>
+                <Link className="link" to="/main"></Link>
             </form>
          
         </Inicial>

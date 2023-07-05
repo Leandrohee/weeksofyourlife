@@ -66,6 +66,8 @@ const listaDeInput = document.querySelectorAll(".input-text")
 
 export default ({isclicked, id, customcor})=>{
 
+    const [text1, setText1] = useState("leandro")
+
     function clickNaTask(e){
         e.stopPropagation()
         console.log(e.target.checked)
@@ -75,18 +77,22 @@ export default ({isclicked, id, customcor})=>{
         customcor(corclicada)   
     }
 
+    //IMPORTANDO O CONTEXT
 
     return(
-        <Tasks isclicked={isclicked} onClick={(e)=>clickNaTask(e)} >
+        <Tasks 
+            isclicked={isclicked} 
+            onClick={(e)=>clickNaTask(e)}
+        >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
             <button className='btn-red' onClick={()=> changeColor("#FF6666")}></button>
             <li>
-                <input id={id+0.1} className="input-checkbox" type='checkbox'/>
-                <input id={id+0.2} className="input-text" type='text'/>
+                <input id={id+0.1} className="input-checkbox" type='checkbox' />
+                <input id={id+0.2} className="input-text" type='text' />
             </li>
             <li>
                 <input  id={id+0.3} className="input-checkbox" type='checkbox'/>
-                <input id={id+0.4}className="input-text" type='text'/>
+                <input id={id+0.4}className="input-text" type='text' />
             </li>
             <li>
                 <input  id={id+0.5} className="input-checkbox" type='checkbox'/>

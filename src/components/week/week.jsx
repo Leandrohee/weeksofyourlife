@@ -1,6 +1,7 @@
 import Tasks from '../tasks/tasks'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
+import { BirthContext } from 'context/birthContex'
 
 const Week = styled.div`                                    //Criando um styled components
     //Dessa maneira o tamanho das semanas fica dinamico e o ano sempre vai acabar no final da linha.
@@ -90,7 +91,9 @@ const dataRef={                                             //Data referencia qu
 } 
 //------------------------------------
 
-export default ({id, birth})=>{ 
+export default ({id})=>{ 
+
+    const {birth, toogleBirth} = useContext(BirthContext)
 
     console.log("pagina renderizada")
  
