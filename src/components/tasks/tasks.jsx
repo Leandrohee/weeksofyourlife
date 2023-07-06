@@ -70,14 +70,13 @@ export default ({isclicked, id, customcor})=>{
 
     function clickNaTask(e){
         e.stopPropagation()
-        console.log(e.target.checked)
+        console.log(e.target)
     }
 
     function changeColor(corclicada){
         customcor(corclicada)   
     }
 
-    //IMPORTANDO O CONTEXT
 
     return(
         <Tasks 

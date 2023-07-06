@@ -21,7 +21,7 @@ const Week = styled.div`                                    //Criando um styled 
         border: ${props => props.ano == "true" ? "2px solid #F2CD5C" : ""};                                   //Toda vez que completar 52 semanas seleciona o elemento com uma borda
         box-shadow: rgba(0, 0, 0, 0.35) 0 0.05rem 0.15rem;                                      
         transition: transform .2s;                                                                //Essa atribuicao trabalha junto com o transforme 
-        transform: scale(${props => props.isclicked == "true" ? 7 : ""});
+        transform: scale(${props => props.isclicked == "true" ? 7 : ""});                         //Se clicar aumenta a escala pra x7
 
         .inside-week{
             display: ${props => props.isclicked == "true"  ? "flex" : "none"};

@@ -4,13 +4,17 @@ export const Container = styled.section`
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-    border: 1px solid black;
-    margin: 2% 2% 2% 8%;
-    width: 100%;
+    /* margin: 6% 8% 5% 10%; */
+    padding: 2.5rem 7.5rem;
+    width: 100vw;
+
 `
 
-// export default ()=>{
-//     <Container>
-        
-//     </Container>
-// }
+export default ()=>{
+    return(
+    <Container>
+        <h1 className='titulo'>weeks of your life</h1>
+    </Container>
+    )
+
+}
