@@ -4,7 +4,7 @@ import { Container } from 'components/container/container';
    
  
 var nWeeks = []                             //Criação de um array nWeeks para guardar o n° de semanas da sua vida
-const nSemanas = 4200;                      //N° de semanas da sua vida
+const nSemanas = 5;                      //N° de semanas da sua vida
 
 const Main = styled.main`                   //Criando um main para agrupar o container das semanas e as semanas
     display: flex;

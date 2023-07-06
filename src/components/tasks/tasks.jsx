@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
+import { weekList } from 'objectList/weekList.js'
 
 const Tasks = styled.ul`
     display: flex;
@@ -66,7 +67,6 @@ const listaDeInput = document.querySelectorAll(".input-text")
 
 export default ({isclicked, id, customcor})=>{
 
-    const [text1, setText1] = useState("leandro")
 
     function clickNaTask(e){
         e.stopPropagation()
@@ -77,25 +77,38 @@ export default ({isclicked, id, customcor})=>{
         customcor(corclicada)   
     }
 
+    //Daqui para baixo é quando for usar o banco de dados 
+    var t1 = weekList[id].text1
+
+    function mudarNaTask(e){
+        console.log(e.target.value)
+        var idDaWeek = e.target.parentNode.parentNode.id
+        var idDoInput = e.target.className
+        idDoInput = idDoInput.slice(0,5)                          //Pega os primeiros 5 digitos da string
+        console.log(weekList[idDaWeek][idDoInput])
+        weekList[idDaWeek][idDoInput] = e.target.value
+    }
 
     return(
         <Tasks 
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
+            onChange={(e)=>mudarNaTask(e)}
+            id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
             <button className='btn-red' onClick={()=> changeColor("#FF6666")}></button>
             <li>
-                <input id={id+0.1} className="input-checkbox" type='checkbox' />
-                <input id={id+0.2} className="input-text" type='text' />
+                <input id={id+0.1} className="chec1 input-checkbox" type='checkbox'/>
+                <input id={id+0.2} className="text1 input-text" type='text' />
             </li>
             <li>
-                <input  id={id+0.3} className="input-checkbox" type='checkbox'/>
-                <input id={id+0.4}className="input-text" type='text' />
+                <input  id={id+0.3} className="chec2 input-checkbox" type='checkbox'/>
+                <input id={id+0.4}className="text2 input-text" type='text' />
             </li>
             <li>
-                <input  id={id+0.5} className="input-checkbox" type='checkbox'/>
-                <input id={id+0.6} className="input-text" type='text'/>
+                <input  id={id+0.5} className="chec3 input-checkbox" type='checkbox'/>
+                <input id={id+0.6} className="text3 input-text" type='text'/>
             </li>
         </Tasks>
     )
