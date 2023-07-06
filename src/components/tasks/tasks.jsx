@@ -78,22 +78,22 @@ export default ({isclicked, id, customcor})=>{
     }
 
     //Daqui para baixo é quando for usar o banco de dados 
-    var t1 = weekList[id].text1
+    // var t1 = weekList[id].text1
 
-    function mudarNaTask(e){
-        console.log(e.target.value)
-        var idDaWeek = e.target.parentNode.parentNode.id
-        var idDoInput = e.target.className
-        idDoInput = idDoInput.slice(0,5)                          //Pega os primeiros 5 digitos da string
-        console.log(weekList[idDaWeek][idDoInput])
-        weekList[idDaWeek][idDoInput] = e.target.value
-    }
+    // function mudarNaTask(e){
+    //     console.log(e.target.value)
+    //     var idDaWeek = e.target.parentNode.parentNode.id
+    //     var idDoInput = e.target.className
+    //     idDoInput = idDoInput.slice(0,5)                          //Pega os primeiros 5 digitos da string
+    //     console.log(weekList[idDaWeek][idDoInput])
+    //     weekList[idDaWeek][idDoInput] = e.target.value
+    // }
 
     return(
         <Tasks 
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
-            onChange={(e)=>mudarNaTask(e)}
+            // onChange={(e)=>mudarNaTask(e)}
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
