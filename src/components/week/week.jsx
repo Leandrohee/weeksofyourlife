@@ -48,8 +48,6 @@ const Week = styled.div`                                    //Criando um styled 
             font-size: 0.2rem;
             pointer-events:none;
         }
-        
- 
 
         &:hover{
             /* transform: translate(0, -1rem);                                           //Joga o elemento pra cima 1rem */

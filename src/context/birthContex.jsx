@@ -12,6 +12,7 @@ export function BirthProvider({children}){                           //Criando u
     }
     
     
+    
 
     return(
         <BirthContext.Provider value={{birth,toggleBirth}}>

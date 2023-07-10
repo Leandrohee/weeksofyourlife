@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { weekList } from 'objectList/weekList.js'
+import {leApi, respostaLeApi}  from 'conectaApi/conectaApi.js'
+import { getValue } from '@testing-library/user-event/dist/utils'
 
 const Tasks = styled.ul`
     display: flex;
@@ -67,7 +68,6 @@ const listaDeInput = document.querySelectorAll(".input-text")
 
 export default ({isclicked, id, customcor})=>{
 
-
     function clickNaTask(e){
         e.stopPropagation()
         console.log(e.target)
@@ -78,37 +78,36 @@ export default ({isclicked, id, customcor})=>{
     }
 
     //Daqui para baixo é quando for usar o banco de dados 
-    // var t1 = weekList[id].text1
+    var t1,t2,t3
+    t1 = respostaLeApi[id-1].text1
+    t2 = respostaLeApi[id-1].text2
+    t3 = respostaLeApi[id-1].text2
 
-    // function mudarNaTask(e){
-    //     console.log(e.target.value)
-    //     var idDaWeek = e.target.parentNode.parentNode.id
-    //     var idDoInput = e.target.className
-    //     idDoInput = idDoInput.slice(0,5)                          //Pega os primeiros 5 digitos da string
-    //     console.log(weekList[idDaWeek][idDoInput])
-    //     weekList[idDaWeek][idDoInput] = e.target.value
-    // }
+    function mudarNaTask(e){
+        console.log(e.target.value)
+        
+    }
 
     return(
         <Tasks 
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
-            // onChange={(e)=>mudarNaTask(e)}
+            onChange={(e)=>mudarNaTask(e)}
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
             <button className='btn-red' onClick={()=> changeColor("#FF6666")}></button>
             <li>
                 <input id={id+0.1} className="chec1 input-checkbox" type='checkbox'/>
-                <input id={id+0.2} className="text1 input-text" type='text' />
+                <input id={id+0.2} className="text1 input-text" type='text' defaultValue={t1}/>
             </li>
             <li>
                 <input  id={id+0.3} className="chec2 input-checkbox" type='checkbox'/>
-                <input id={id+0.4}className="text2 input-text" type='text' />
+                <input id={id+0.4}className="text2 input-text" type='text' defaultValue={t2}/>
             </li>
             <li>
                 <input  id={id+0.5} className="chec3 input-checkbox" type='checkbox'/>
-                <input id={id+0.6} className="text3 input-text" type='text'/>
+                <input id={id+0.6} className="text3 input-text" type='text' defaultValue={t3}/>
             </li>
         </Tasks>
     )
