@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import {leApi, respostaLeApi}  from 'conectaApi/conectaApi.js'
+import {atualizaApi, respostaLeApi}  from 'conectaApi/conectaApi.js'
 import { getValue } from '@testing-library/user-event/dist/utils'
 
 const Tasks = styled.ul`
@@ -78,14 +78,22 @@ export default ({isclicked, id, customcor})=>{
     }
 
     //Daqui para baixo é quando for usar o banco de dados 
-    var t1,t2,t3
-    t1 = respostaLeApi[id-1].text1
-    t2 = respostaLeApi[id-1].text2
-    t3 = respostaLeApi[id-1].text2
+    var t1,t2,t3,c1,c2,c3
+    t1 = respostaLeApi[id].text1
+    t2 = respostaLeApi[id].text2
+    t3 = respostaLeApi[id].text3
+    c1 = respostaLeApi[id].chec1
+    c2 = respostaLeApi[id].chec2
+    c3 = respostaLeApi[id].chec3
 
     function mudarNaTask(e){
-        console.log(e.target.value)
-        
+        var qualInput = e.target.className.slice(0,5)
+        var vInput = e.target.value
+        if(qualInput == "text1"){atualizaApi(id,vInput,"","")}
+        if(qualInput == "text2"){atualizaApi(id,"",vInput,"")}
+        if(qualInput == "text3"){atualizaApi(id,"","",vInput)}
+        if(qualInput == "chec1"){atualizaApi(id,"","",true)}
+        console.log(e.target)
     }
 
     return(
@@ -98,15 +106,15 @@ export default ({isclicked, id, customcor})=>{
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
             <button className='btn-red' onClick={()=> changeColor("#FF6666")}></button>
             <li>
-                <input id={id+0.1} className="chec1 input-checkbox" type='checkbox'/>
+                <input id={id+0.1} className="chec1 input-checkbox" type='checkbox' defaultChecked={c1}/>
                 <input id={id+0.2} className="text1 input-text" type='text' defaultValue={t1}/>
             </li>
             <li>
-                <input  id={id+0.3} className="chec2 input-checkbox" type='checkbox'/>
+                <input  id={id+0.3} className="chec2 input-checkbox" type='checkbox' defaultChecked={c2}/>
                 <input id={id+0.4}className="text2 input-text" type='text' defaultValue={t2}/>
             </li>
             <li>
-                <input  id={id+0.5} className="chec3 input-checkbox" type='checkbox'/>
+                <input  id={id+0.5} className="chec3 input-checkbox" type='checkbox'defaultChecked={c3}/>
                 <input id={id+0.6} className="text3 input-text" type='text' defaultValue={t3}/>
             </li>
         </Tasks>

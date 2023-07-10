@@ -7,8 +7,15 @@ export async function leApi(){
 export const respostaLeApi = await leApi()
 
 
-async function atualizaApi(id){
-    const resposta = await fetch(`http://localhost:3001/weeks/${id}`)
-    
+export async function atualizaApi(id,text1,text2,text3,chec1,chec2,chec3,customcor){            //atualiza dados na api
+    const resposta = await fetch(`http://localhost:3001/weeks/${id}`,{
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            id: id,
+            text1: text1
+        })
+    })
+
 }
 
