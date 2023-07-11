@@ -2,6 +2,7 @@ import Tasks from '../tasks/tasks'
 import { useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
 import { BirthContext } from 'context/birthContex'
+import { respostaApi } from 'conectaApi/conectaApi.js'
 
 const Week = styled.div`                                    //Criando um styled components
     //Dessa maneira o tamanho das semanas fica dinamico e o ano sempre vai acabar no final da linha.
@@ -219,6 +220,12 @@ export default ({id})=>{
         setColor(colorBg)
         setFontColor(colorFonte)
     },[colorBg])
+
+    useEffect(()=>{                                         //Se o banco de dados tiver alguma informacao sobre a cor aplicar, somente usa uma vez na hora de iniciar a pagina
+        if(respostaApi.customcor[id].valor !== ""){
+            setColor(respostaApi.customcor[id].valor)
+        }
+    },[])                                                   //Somente renderiza uma vez na inicializacao da pagina
 
 
     return(

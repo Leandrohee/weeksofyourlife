@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import {atualizaApi, respostaLeApi}  from 'conectaApi/conectaApi.js'
+import {atualizaApi, respostaApi}  from 'conectaApi/conectaApi.js'
 import { getValue } from '@testing-library/user-event/dist/utils'
 
 const Tasks = styled.ul`
@@ -73,34 +73,44 @@ export default ({isclicked, id, customcor})=>{
         console.log(e.target)
     }
 
-    function changeColor(corclicada){
-        customcor(corclicada)   
-    }
 
-    //Daqui para baixo é quando for usar o banco de dados 
-    var t1,t2,t3,c1,c2,c3
-    t1 = respostaLeApi[id].text1
-    t2 = respostaLeApi[id].text2
-    t3 = respostaLeApi[id].text3
-    c1 = respostaLeApi[id].chec1
-    c2 = respostaLeApi[id].chec2
-    c3 = respostaLeApi[id].chec3
+    //**********Daqui para baixo é quando for usar o banco de dados ***************
+    var t1,t2,t3,c1,c2,c3,qualInput,foiCheck,vInput,vCheck
+    t1 = respostaApi.text1[id].valor
+    t2 = respostaApi.text2[id].valor
+    t3 = respostaApi.text3[id].valor
+    c1 = respostaApi.chec1[id].valor
+    c2 = respostaApi.chec2[id].valor
+    c3 = respostaApi.chec3[id].valor
 
     function mudarNaTask(e){
-        var qualInput = e.target.className.slice(0,5)
-        var vInput = e.target.value
-        if(qualInput == "text1"){atualizaApi(id,vInput,"","")}
-        if(qualInput == "text2"){atualizaApi(id,"",vInput,"")}
-        if(qualInput == "text3"){atualizaApi(id,"","",vInput)}
-        if(qualInput == "chec1"){atualizaApi(id,"","",true)}
-        console.log(e.target)
+        qualInput = e.target.className.slice(0,5)
+        foiCheck = e.target.className.slice(0,4)
+        foiCheck == "text" ? vInput = e.target.value : vInput = null
+        foiCheck == "chec" ? vCheck = e.target.checked : vCheck = null
+
+        atualizaApi(id,qualInput,vInput,vCheck)
+    }
+
+    function changeColor(corclicada){
+        customcor(corclicada)   
+
+        // atualizaApi(id,"customcor",corclicada)
+        // if(respostaApi.customcor[id].valor == corclicada){
+        //     atualizaApi(id,"customcor","")
+        // }
+    }
+
+    function dizOla(palavra){
+        console.log("ola")
     }
 
     return(
         <Tasks 
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
-            onChange={(e)=>mudarNaTask(e)}
+            // onChange={(e)=>mudarNaTask(e)}
+            onChange={()=> {setTimeout(dizOla,2000)}}
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
