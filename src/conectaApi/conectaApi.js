@@ -34,7 +34,7 @@ async function leApiChec3(){
     return respostaJson
 }
 
-async function leApiCustomCor(){
+export async function leApiCustomCor(){
     const resposta = await fetch(`http://localhost:3001/customcor`)     //resposta promisse
     const respostaJson = await resposta.json()                      //resposta promisse convertida
     return respostaJson

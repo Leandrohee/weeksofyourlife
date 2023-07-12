@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import {atualizaApi, respostaApi}  from 'conectaApi/conectaApi.js'
-import { getValue } from '@testing-library/user-event/dist/utils'
+import {atualizaApi, respostaApi, leApiCustomCor}  from 'conectaApi/conectaApi.js'
 
 const Tasks = styled.ul`
     display: flex;
@@ -94,15 +93,27 @@ export default ({isclicked, id, customcor})=>{
 
     function changeColor(corclicada){
         customcor(corclicada)   
-
         // atualizaApi(id,"customcor",corclicada)
+
+        leApiCustomCor().then((resposta)=>{
+            // console.log(resposta[id].valor)
+            if(corclicada == resposta[id].valor){
+                atualizaApi(id,"customcor","")
+            }
+            else{
+                atualizaApi(id,"customcor",corclicada)
+            }
+        })
+    
+        
+
         // if(respostaApi.customcor[id].valor == corclicada){
         //     atualizaApi(id,"customcor","")
         // }
     }
 
     function dizOla(palavra){
-        console.log("ola")
+        console.log(palavra)
     }
 
     return(
@@ -110,7 +121,7 @@ export default ({isclicked, id, customcor})=>{
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
             // onChange={(e)=>mudarNaTask(e)}
-            onChange={()=> {setTimeout(dizOla,2000)}}
+            onChange={(e)=>setTimeout(mudarNaTask,2000,e)}
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
