@@ -61,7 +61,6 @@ const Week = styled.div`                                    //Criando um styled 
  `
 
 // VARIAVIES GLOBAIS
-var hoje = new Date()
 var ano,contAno                                               //Contagem do ano
 const contAnoRef={
     anorefencia:"",
@@ -89,9 +88,10 @@ const dataRef={                                             //Data referencia qu
 } 
 //------------------------------------
 
+const birth = new Date(1994,11,15)                                 //Opcao sem passar pelo input da pagina inicial. Opcao abaixo passa pelo input da pagina inicial
 export default ({id})=>{ 
 
-    const {birth, toogleBirth} = useContext(BirthContext)
+    // const {birth, toogleBirth} = useContext(BirthContext)       //Esta usando o birth do contex "BirthContext". Dessa forma a birth eh personalizada mediante a pagina inicial
 
     console.log("pagina renderizada")
  
@@ -128,6 +128,7 @@ export default ({id})=>{
     }
 
     function verificaSemanaAcabou(data){                        //Verifica se a semana já acabou
+        const hoje = new Date()
         if (data <= hoje){                                      //Se acabou pinta de escuro
             colorBg = "#787A91"
             colorFonte = "white"

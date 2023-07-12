@@ -92,36 +92,25 @@ export default ({isclicked, id, customcor})=>{
     }
 
     function changeColor(corclicada){
-        customcor(corclicada)   
-        // atualizaApi(id,"customcor",corclicada)
+        customcor(corclicada)                               //Envia a cor selecionada para a week
 
-        leApiCustomCor().then((resposta)=>{
-            // console.log(resposta[id].valor)
-            if(corclicada == resposta[id].valor){
+        leApiCustomCor().then((resposta)=>{                 //Atualiza o db baseado na resposta
+            if(corclicada == resposta[id].valor){           //Se a cor selecionada for a mesma do db entao muda para cor padrao ""
                 atualizaApi(id,"customcor","")
             }
-            else{
+            else{                                           //Se a cor selecionada for "" entao muda para a cor selecionada
                 atualizaApi(id,"customcor",corclicada)
             }
         })
     
-        
-
-        // if(respostaApi.customcor[id].valor == corclicada){
-        //     atualizaApi(id,"customcor","")
-        // }
-    }
-
-    function dizOla(palavra){
-        console.log(palavra)
     }
 
     return(
         <Tasks 
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
-            // onChange={(e)=>mudarNaTask(e)}
-            onChange={(e)=>setTimeout(mudarNaTask,2000,e)}
+            // onChange={(e)=>setTimeout(mudarNaTask,2000,e)}       //funcao onChange causa muito problemas pq ela eh atualizada a cada tecla
+            onBlur={(e)=>mudarNaTask(e)}                            //funcao onBlue eh melhor pq ela so atualiza quando o input eh deselecionado
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
