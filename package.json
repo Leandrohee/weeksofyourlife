@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock": "json-server --watch db.json --port 3001"
+    "mock": "json-server --watch db.json --port 3001",
+    "start_full_app": "concurrently \"npm run mock\" \"npm run start\"" 
   },
   "eslintConfig": {
     "extends": [
