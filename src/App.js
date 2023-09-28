@@ -6,6 +6,11 @@ import Main from "./components/main/main";
 import Inicial from "paginas/Inicial/inicial";
 import { BirthProvider } from "context/birthContex";
 
+// ARQUIVO APP EH O ARQUIVO BASE PARA O PROJETO - PONTO DE PARTIDA
+
+// HIERARQUIA DOS ARQUIVOS: --> APP --> INICIAL --> MAIN            (PARALELO)
+//                          --> APP --> MAIN    --> WEEK --> TASKS  (PARALELO)
+
 
 export default function App() {
   return (
@@ -25,6 +30,3 @@ export default function App() {
     </>  
   );
 }
-
-{/* 
-<Main birth={birth}></Main> */}

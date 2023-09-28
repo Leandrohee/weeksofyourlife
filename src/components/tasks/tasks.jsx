@@ -2,6 +2,8 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import {atualizaApi, respostaApi, leApiCustomCor}  from 'conectaApi/conectaApi.js'
 
+// ARQUIVO RESPONSAVEL POR GERENCIAR O CONTEUDO DENTRO DAS SEMANAS COMO CHECKBOX E TEXTOS E MUDAR A COR
+
 const Tasks = styled.ul`
     display: flex;
     flex-direction: column;
@@ -93,27 +95,19 @@ export default ({isclicked, id, customcor})=>{
 
     function changeColor(corclicada){
         customcor(corclicada)   
-        // atualizaApi(id,"customcor",corclicada)
 
-        leApiCustomCor().then((resposta)=>{
-            // console.log(resposta[id].valor)
-            if(corclicada == resposta[id].valor){
-                atualizaApi(id,"customcor","")
-            }
-            else{
-                atualizaApi(id,"customcor",corclicada)
-            }
-        })
+        // atualizaApi(id,"customcor",corclicada)               // Essa parte comentada abaixo faz a conexao com a Api paara mudanca de cor
+
+        // leApiCustomCor().then((resposta)=>{
+        //     // console.log(resposta[id].valor)
+        //     if(corclicada == resposta[id].valor){
+        //         atualizaApi(id,"customcor","")
+        //     }
+        //     else{
+        //         atualizaApi(id,"customcor",corclicada)
+        //     }
+        // })
     
-        
-
-        // if(respostaApi.customcor[id].valor == corclicada){
-        //     atualizaApi(id,"customcor","")
-        // }
-    }
-
-    function dizOla(palavra){
-        console.log(palavra)
     }
 
     return(
@@ -121,7 +115,7 @@ export default ({isclicked, id, customcor})=>{
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
             // onChange={(e)=>mudarNaTask(e)}
-            onChange={(e)=>setTimeout(mudarNaTask,2000,e)}
+            // onChange={(e)=>setTimeout(mudarNaTask,2000,e)}                                               // Esse comando leva a funcao que conecta na Api e altera os dados no banco de dados
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>

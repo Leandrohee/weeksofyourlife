@@ -3,6 +3,10 @@ import { useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
 import { BirthContext } from 'context/birthContex'
 import { leApiCustomCor, respostaApi} from 'conectaApi/conectaApi.js'
+
+// ARQUIVO RESPONSAVEL POR GERENCIAS AS SEMANAS(WEEKS) COLOCA COR, TAMANHO E DINAMISMO
+
+
 const Week = styled.div`                                    //Criando um styled components
     //Dessa maneira o tamanho das semanas fica dinamico e o ano sempre vai acabar no final da linha.
         /* width: 1.41vw;
@@ -229,10 +233,10 @@ export default ({id})=>{
 
     return(
         <Week 
-            id={id}                                             //propriedade de fora
+            id={id}                                             //propriedade de fora (provavelmente do pai)
             color={color}                                       //propriedade herdada de uma variavel global
             fontcolor = {fontColor}                             //propriedade herdada de uma variavel global
-            ano={ano}                                           //propriedade herdada de uma variavel gloval
+            ano={ano}                                           //propriedade herdada de uma variavel global
             onClick={(e) => clickNaSemana(e)}                   //funcao interna do componente react
             isclicked = {isclicked}                             //funcao interna do componente react
             customcor = {customCor}

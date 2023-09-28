@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import Week from '../week/week'
 import { Container } from 'components/container/container';
    
+// ARQUIVO RESPONSAVEL POR CRIAR O NUMERO DE SEMANAS E GERAR AS SEMANAS(WEEKS) 
+// O ARQUIVO SOMENTE GERA AS SEMANAS NAO AS ALTERA NEM ATRIBUI CARACTERISTICAS
+
  
 var nWeeks = []                             //Criação de um array nWeeks para guardar o n° de semanas da sua vida
 const nSemanas = 4200;                      //N° de semanas da sua vida
@@ -30,7 +33,7 @@ for(let i=1; i < nSemanas + 1 ;i++){        //Acrescentando o numero de semanas 
 // console.log(nWeeks)
 
 
-export default ()=>{                 //Prop birth vem do app.js comtem a data do input
+export default ()=>{                        //Prop birth vem do app.js comtem a data do input 
         
     return(
         <Main>
