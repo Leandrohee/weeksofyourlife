@@ -65,7 +65,6 @@ const Week = styled.div`                                    //Criando um styled 
  `
 
 // VARIAVIES GLOBAIS
-var hoje = new Date()
 var ano,contAno                                               //Contagem do ano
 const contAnoRef={
     anorefencia:"",
@@ -93,9 +92,10 @@ const dataRef={                                             //Data referencia qu
 } 
 //------------------------------------
 
+const birth = new Date('1994-11-15')                                 //Opcao sem passar pelo input da pagina inicial. Opcao abaixo passa pelo input da pagina inicial
 export default ({id})=>{ 
 
-    const {birth, toogleBirth} = useContext(BirthContext)
+    // const {birth, toogleBirth} = useContext(BirthContext)       //Esta usando o birth do contex "BirthContext". Dessa forma a birth eh personalizada mediante a pagina inicial
 
     console.log("pagina renderizada")
  
@@ -132,6 +132,7 @@ export default ({id})=>{
     }
 
     function verificaSemanaAcabou(data){                        //Verifica se a semana já acabou
+        const hoje = new Date()
         if (data <= hoje){                                      //Se acabou pinta de escuro
             colorBg = "#787A91"
             colorFonte = "white"
@@ -197,14 +198,14 @@ export default ({id})=>{
 
             verificaSemanaAcabou(dataRef.data)
         }
- 
-        //Aqui para baixo verifica o aniversario e o ano referente aquela semana
 
+        //Aqui para baixo verifica o aniversario e o ano referente aquela semana
+        //Regra
         contAnoRef.desdenascimento = Math.floor((((pegaTempo() - niver.tempo)/(1000*60*60*24))/365.25))
         contAnoRef.anoRef = niver.ano + contAnoRef.desdenascimento                                          //Sempre coloca o ano da week (1994,1995,1996...)
         contAnoRef.data = new Date(`${contAnoRef.anoRef},${niver.mes},${niver.dia}`)                        //Cria uma nova data com o ano referente da week (15/11/1994, 15/11/1995...)
-
-        if(((pegaTempo() - contAnoRef.data.getTime())/((1000*60*60*24)))<7){                                //Se mor que 7 quer dizer que é semana do aniversario
+       
+        if((pegaTempo() - contAnoRef.data.getTime())/((1000*60*60*24))<=7){                                //Se memor que 7 quer dizer que é semana do aniversario, pode acontecer que quando o aniversario da domingo a regra da errada
             ano = "true"
             contAno = dataRef.data.getFullYear() - niver.ano
             colorBg = "#FFF2CC"
@@ -215,9 +216,26 @@ export default ({id})=>{
             contAno = contAnoRef.desdenascimento
             if(id == 1){ contAno = 0}
         }
+
+        //Exceção a regra para descobrir a semana do ano (geralmente quando o aniversario da domingo)
+        const diaDataFim = Number(dataRef.fim.slice(0,2))
+        const mesDataFim = Number(dataRef.fim.slice(3,5))
+
+        if((niver.dia == diaDataFim) && (niver.mes == mesDataFim)){//
+            ano = "true"
+            contAno = dataRef.data.getFullYear() - niver.ano
+            colorBg = "#FFF2CC"
+            colorFonte = "black"
+        }
+        
     } 
 
     formatData(id, birth)
+
+    if(id == 4020){                                         // Fim da vida *Expectativa de vida de 77 anos*   
+        colorBg = "#000"
+        colorFonte = "white"
+    }
 
     useEffect(()=>{                                         //Para nao dar o problema dos renders
         setColor(colorBg)

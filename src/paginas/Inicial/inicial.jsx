@@ -72,19 +72,15 @@ const Inicial = styled.div`
 
 export default()=>{
 
-    // const [birth, setBirth] = useState("")                      //No react so consigo mudar uma const com o useState
-
     const {birth,toggleBirth} = useContext(BirthContext)
-
 
     function catchBirth(e){
         e.preventDefault()
         const inputData =  document.querySelector(".input-data").valueAsDate
-        toggleBirth(inputData)
+        toggleBirth(inputData)                                  //muda o birth para o dia selecionado no input
 
         const link = document.querySelector(".link")            //Localize o componente Link
         link.click()                                            //Simula um clique
-
     }
 
 

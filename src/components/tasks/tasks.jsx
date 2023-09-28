@@ -95,19 +95,27 @@ export default ({isclicked, id, customcor})=>{
 
     function changeColor(corclicada){
         customcor(corclicada)   
+        // atualizaApi(id,"customcor",corclicada)
 
-        // atualizaApi(id,"customcor",corclicada)               // Essa parte comentada abaixo faz a conexao com a Api paara mudanca de cor
-
-        // leApiCustomCor().then((resposta)=>{
-        //     // console.log(resposta[id].valor)
-        //     if(corclicada == resposta[id].valor){
-        //         atualizaApi(id,"customcor","")
-        //     }
-        //     else{
-        //         atualizaApi(id,"customcor",corclicada)
-        //     }
-        // })
+        leApiCustomCor().then((resposta)=>{
+            // console.log(resposta[id].valor)
+            if(corclicada == resposta[id].valor){
+                atualizaApi(id,"customcor","")
+            }
+            else{
+                atualizaApi(id,"customcor",corclicada)
+            }
+        })
     
+        
+
+        // if(respostaApi.customcor[id].valor == corclicada){
+        //     atualizaApi(id,"customcor","")
+        // }
+    }
+
+    function dizOla(palavra){
+        console.log(palavra)
     }
 
     return(
@@ -115,7 +123,7 @@ export default ({isclicked, id, customcor})=>{
             isclicked={isclicked} 
             onClick={(e)=>clickNaTask(e)}
             // onChange={(e)=>mudarNaTask(e)}
-            // onChange={(e)=>setTimeout(mudarNaTask,2000,e)}                                               // Esse comando leva a funcao que conecta na Api e altera os dados no banco de dados
+            onChange={(e)=>setTimeout(mudarNaTask,2000,e)}
             id={id}
         >
             <button className='btn-green' onClick={()=> changeColor("#03C988")}></button>
